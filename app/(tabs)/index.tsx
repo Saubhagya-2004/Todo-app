@@ -1,98 +1,134 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// app/(tabs)/index.tsx
+// Main task list screen — shows all tasks with filtering and smart sorting
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from '../../context/AuthContext';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setTasks } from '../../store/slices/tasksSlice';
+import { subscribeTasks } from '../../services/taskService';
+import { sortTasks } from '../../utils/sortTasks';
+import TaskCard from '../../components/TaskCard';
+import FilterBar from '../../components/FilterBar';
+import EmptyState from '../../components/EmptyState';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
+  const { tasks, filterStatus, filterPriority } = useAppSelector((s) => s.tasks);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  useEffect(() => {
+    if (!user) return;
+
+    const unsubscribe = subscribeTasks(
+      user.uid,
+      (firestoreTasks) => {
+        dispatch(setTasks(firestoreTasks));
+        setLoading(false);
+        setRefreshing(false);
+      },
+      (error) => {
+        console.error('Firestore subscription error:', error);
+        setLoading(false);
+        setRefreshing(false);
+      }
+    );
+
+    return unsubscribe;
+  }, [user]);
+
+  const filteredTasks = React.useMemo(() => {
+    let result = [...tasks];
+
+    if (filterStatus === 'active') result = result.filter((t) => !t.completed);
+    else if (filterStatus === 'completed') result = result.filter((t) => t.completed);
+
+    if (filterPriority !== 'all')
+      result = result.filter((t) => t.priority === filterPriority);
+
+    return sortTasks(result);
+  }, [tasks, filterStatus, filterPriority]);
+
+  const activeCount = tasks.filter((t) => !t.completed).length;
+  const totalCount = tasks.length;
+
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 bg-slate-50 justify-center items-center gap-3">
+        <StatusBar style="dark" />
+        <ActivityIndicator size="large" color="#2563EB" />
+        <Text className="text-slate-500 text-sm">Loading your tasks...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView className="flex-1 bg-slate-50" edges={['top']}>
+      <StatusBar style="dark" />
+
+      {/* Header */}
+      <View className="flex-row justify-between items-center px-5 pt-3 pb-5">
+        <View>
+          <Text className="text-2xl font-extrabold text-slate-900">
+            Hey, {user?.displayName?.split(' ')[0] ?? 'there'} 
+          </Text>
+          <Text className="text-sm text-slate-500 mt-1">
+            {activeCount} active · {totalCount} total tasks
+          </Text>
+        </View>
+        
+        {totalCount > 0 && (
+          <View className="bg-white border border-slate-200 rounded-2xl px-4 py-2.5 items-center justify-center">
+            <Text className="text-lg font-extrabold text-blue-600">
+              {Math.round(((totalCount - activeCount) / totalCount) * 100)}%
+            </Text>
+            <Text className="text-[10px] font-semibold text-slate-500">done</Text>
+          </View>
+        )}
+      </View>
+
+      {/* Filter Pills */}
+      <FilterBar />
+
+      {/* Task List */}
+      <FlatList
+        data={filteredTasks}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <TaskCard task={item} />}
+        contentContainerClassName={filteredTasks.length === 0 ? "flex-1 justify-center" : "pt-2 pb-6"}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => setRefreshing(true)}
+            tintColor="#3B82F6"
+          />
+        }
+        ListEmptyComponent={
+          <EmptyState
+            message={
+              filterStatus !== 'all' || filterPriority !== 'all'
+                ? 'No matching tasks'
+                : 'No tasks yet'
+            }
+            submessage={
+              filterStatus !== 'all' || filterPriority !== 'all'
+                ? 'Try clearing the filters'
+                : 'Tap the Add Task tab to add your first task'
+            }
+          />
+        }
+      />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
