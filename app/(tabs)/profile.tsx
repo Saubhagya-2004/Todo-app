@@ -1,5 +1,5 @@
-// app/(tabs)/profile.tsx
-// Profile screen showing user info, task stats, and logout button
+
+
 
 import React from 'react';
 import {
@@ -18,7 +18,7 @@ export default function ProfileScreen() {
   const { user, logout } = useAuth();
   const tasks = useAppSelector((s) => s.tasks.tasks);
 
-  // Compute stats
+  
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.completed).length;
   const activeTasks = totalTasks - completedTasks;
@@ -28,7 +28,7 @@ export default function ProfileScreen() {
   const completionRate =
     totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
-  // Get user initials for avatar
+  
   const initials = user?.displayName
     ? user.displayName
         .split(' ')
@@ -56,10 +56,10 @@ export default function ProfileScreen() {
         contentContainerClassName="p-6 pb-12 gap-6"
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
+        {}
         <Text className="text-3xl font-extrabold text-slate-900">Profile</Text>
 
-        {/* Avatar + Info */}
+        {}
         <View className="bg-white rounded-3xl p-7 items-center border border-slate-200 gap-2">
           <View className="w-20 h-20 rounded-full bg-blue-600 items-center justify-center mb-2 shadow-lg shadow-blue-600/50 elevation-md">
             <Text className="text-white text-3xl font-extrabold">{initials}</Text>
@@ -70,7 +70,7 @@ export default function ProfileScreen() {
           <Text className="text-slate-500 text-sm">{user?.email}</Text>
         </View>
 
-        {/* Stats Grid */}
+        {}
         <Text className="text-slate-500 text-[13px] font-semibold tracking-wider -mb-3 mt-1">Your Stats</Text>
         <View className="flex-row flex-wrap gap-3">
           <StatCard value={totalTasks} label="Total Tasks" colorClass="text-blue-600" borderClass="border-blue-600/40" />
@@ -79,7 +79,7 @@ export default function ProfileScreen() {
           <StatCard value={highPriorityActive} label="Urgent" colorClass="text-red-500" borderClass="border-red-500/40" />
         </View>
 
-        {/* Completion bar */}
+        {}
         <View className="bg-white rounded-[20px] p-5 border border-slate-200 gap-3">
           <View className="flex-row justify-between items-center">
             <Text className="text-slate-500 text-sm font-semibold">Overall Completion</Text>
@@ -93,7 +93,7 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* Logout */}
+        {}
         <TouchableOpacity
           className="flex-row items-center justify-center gap-2.5 bg-red-50 border-[1.5px] border-red-200 rounded-2xl py-4 mt-2"
           onPress={handleLogout}
@@ -107,7 +107,7 @@ export default function ProfileScreen() {
   );
 }
 
-// Small stat card component
+
 function StatCard({
   value,
   label,

@@ -1,5 +1,5 @@
-// components/TaskCard.tsx
-// A single task card with completion toggle, priority indicator, and delete button
+
+
 
 import React, { useRef } from 'react';
 import {
@@ -22,14 +22,14 @@ interface TaskCardProps {
   task: Task;
 }
 
-// Map priority to tailwind border color class
+
 const PRIORITY_BORDER: Record<string, string> = {
   high: 'bg-red-500',
   medium: 'bg-amber-500',
   low: 'bg-emerald-500',
 };
 
-// Format an ISO date string to a readable short format
+
 function formatDate(iso: string): string {
   try {
     return new Date(iso).toLocaleDateString('en-US', {
@@ -43,7 +43,7 @@ function formatDate(iso: string): string {
   }
 }
 
-// Check if a deadline has passed
+
 function isOverdue(deadlineIso: string, completed: boolean): boolean {
   if (completed) return false;
   return new Date(deadlineIso).getTime() < Date.now();
@@ -51,12 +51,12 @@ function isOverdue(deadlineIso: string, completed: boolean): boolean {
 
 export default function TaskCard({ task }: TaskCardProps) {
   const dispatch = useAppDispatch();
-  // Animated scale for the bounce effect when completing
+  
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const overdue = isOverdue(task.deadline, task.completed);
 
-  // Toggle completion state in Firestore and Redux
+  
   async function handleToggle() {
     Animated.sequence([
       Animated.timing(scaleAnim, {
@@ -80,7 +80,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     }
   }
 
-  // Delete with a confirmation dialog
+  
   function handleDelete() {
     Alert.alert(
       'Delete Task',

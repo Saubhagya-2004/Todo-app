@@ -1,5 +1,5 @@
-// app/(tabs)/add-task.tsx
-// Add Task screen — form to create a new task with all fields
+
+
 
 import React, { useState } from 'react';
 import {
@@ -20,14 +20,14 @@ import { Priority, Category, TaskFormData } from '../../types';
 import { StatusBar } from 'expo-status-bar';
 import { Feather } from '@expo/vector-icons';
 
-// Priority selector options
+
 const PRIORITIES: Array<{ value: Priority; label: string; colorClass: string; activeClass: string; textClass: string }> = [
   { value: 'low', label: ' Low', colorClass: 'border-emerald-200', activeClass: 'bg-emerald-50 border-emerald-500', textClass: 'text-emerald-500' },
   { value: 'medium', label: ' Medium', colorClass: 'border-amber-200', activeClass: 'bg-amber-50 border-amber-500', textClass: 'text-amber-500' },
   { value: 'high', label: ' High', colorClass: 'border-red-200', activeClass: 'bg-red-50 border-red-500', textClass: 'text-red-500' },
 ];
 
-// Category options
+
 const CATEGORIES: Array<{ value: Category; label: string; icon: any }> = [
   { value: 'work', label: 'Work', icon: 'briefcase' },
   { value: 'personal', label: 'Personal', icon: 'home' },
@@ -46,16 +46,16 @@ export default function AddTaskScreen() {
   const [dateTime, setDateTime] = useState(new Date());
   const [deadline, setDeadline] = useState(() => {
     const d = new Date();
-    d.setDate(d.getDate() + 1); // default deadline tomorrow
+    d.setDate(d.getDate() + 1); 
     return d;
   });
   const [loading, setLoading] = useState(false);
 
-  // Date picker visibility states
+  
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
   const [showDeadlinePicker, setShowDeadlinePicker] = useState(false);
 
-  // Format date for display
+  
   function formatDisplay(d: Date): string {
     return d.toLocaleDateString('en-US', {
       month: 'short',
@@ -85,7 +85,7 @@ export default function AddTaskScreen() {
       };
       await addTaskToFirestore(user.uid, formData);
 
-      // Reset form
+      
       setTitle('');
       setDescription('');
       setPriority('medium');
@@ -112,11 +112,11 @@ export default function AddTaskScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Screen heading */}
+        {}
         <Text className="text-2xl font-extrabold text-slate-900">New Task</Text>
         <Text className="text-sm text-slate-500 -mt-3">What do you need to get done?</Text>
 
-        {/* Title */}
+        {}
         <View className="gap-2">
           <Text className="text-[13px] font-semibold text-slate-500 tracking-wider">Title *</Text>
           <TextInput
@@ -130,7 +130,7 @@ export default function AddTaskScreen() {
           />
         </View>
 
-        {/* Description */}
+        {}
         <View className="gap-2">
           <Text className="text-[13px] font-semibold text-slate-500 tracking-wider">Description</Text>
           <TextInput
@@ -146,7 +146,7 @@ export default function AddTaskScreen() {
           />
         </View>
 
-        {/* Priority selector */}
+        {}
         <View className="gap-2">
           <Text className="text-[13px] font-semibold text-slate-500 tracking-wider">Priority</Text>
           <View className="flex-row gap-2.5">

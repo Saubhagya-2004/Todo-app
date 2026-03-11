@@ -1,6 +1,6 @@
-// app/_layout.tsx
-// Root layout — wraps the entire app with Redux store, AuthProvider, and navigation.
-// Routes between (auth) and (tabs) stacks based on authentication state.
+
+
+
 
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
@@ -13,14 +13,14 @@ import { AuthProvider } from '../context/AuthContext';
 
 export default function RootLayout() {
   return (
-    // Provide the Redux store globally
+    
     <Provider store={store}>
-      {/* Provide Firebase Auth state globally */}
+      {}
       <AuthProvider>
         <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
-          {/* Auth screens (login / register) */}
+          {}
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          {/* Main app tabs */}
+          {}
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="light" />

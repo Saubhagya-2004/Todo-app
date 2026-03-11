@@ -1,6 +1,6 @@
-// services/taskService.ts
-// Firestore CRUD operations for tasks
-// All tasks are scoped to the authenticated user's userId
+
+
+
 
 import {
   collection,
@@ -17,13 +17,10 @@ import {
 import { db } from '../lib/firebase';
 import { Task, TaskFormData } from '../types';
 
-// Reference to the top-level "tasks" collection
+
 const TASKS_COLLECTION = 'tasks';
 
-/**
- * Subscribe to all tasks for a given user in real-time.
- * Returns an unsubscribe function — call it to stop listening.
- */
+
 export function subscribeTasks(
   userId: string,
   onUpdate: (tasks: Task[]) => void,
@@ -60,10 +57,7 @@ export function subscribeTasks(
   );
 }
 
-/**
- * Add a new task document to Firestore.
- * Returns the generated task id.
- */
+
 export async function addTaskToFirestore(
   userId: string,
   formData: TaskFormData
@@ -82,9 +76,7 @@ export async function addTaskToFirestore(
   return docRef.id;
 }
 
-/**
- * Update the completed status of a task.
- */
+
 export async function toggleTaskComplete(
   taskId: string,
   completed: boolean
@@ -93,9 +85,7 @@ export async function toggleTaskComplete(
   await updateDoc(taskRef, { completed });
 }
 
-/**
- * Update all editable fields of an existing task.
- */
+
 export async function updateTaskInFirestore(
   taskId: string,
   formData: TaskFormData
@@ -111,9 +101,7 @@ export async function updateTaskInFirestore(
   });
 }
 
-/**
- * Permanently delete a task document.
- */
+
 export async function deleteTaskFromFirestore(taskId: string): Promise<void> {
   const taskRef = doc(db, TASKS_COLLECTION, taskId);
   await deleteDoc(taskRef);

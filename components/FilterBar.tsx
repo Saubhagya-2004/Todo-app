@@ -1,5 +1,5 @@
-// components/FilterBar.tsx
-// Horizontal scrollable pill filters for task status and priority
+
+
 
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
@@ -25,7 +25,7 @@ export default function FilterBar() {
 
   return (
     <View className="gap-2 pb-1">
-      {/* Status filter row */}
+      {}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

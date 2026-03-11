@@ -1,5 +1,5 @@
-// components/EmptyState.tsx
-// Shown when there are no tasks matching the current filter
+
+
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -15,7 +15,7 @@ export default function EmptyState({
 }: EmptyStateProps) {
   return (
     <View style={styles.container}>
-      {/* Decorative icon */}
+      {}
      
       <Text style={styles.title}>{message}</Text>
       <Text style={styles.subtitle}>{submessage}</Text>

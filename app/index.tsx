@@ -1,5 +1,5 @@
-// app/index.tsx
-// Initial entry point for the app. Redirects to login or tabs based on auth state.
+
+
 
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
@@ -19,7 +19,7 @@ export default function Index() {
     );
   }
 
-  // Redirect based on authentication state
+  
   if (user) {
     return <Redirect href="/(tabs)" />;
   }

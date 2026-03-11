@@ -1,5 +1,5 @@
-// app/(auth)/_layout.tsx
-// Stack navigator for authentication screens (login, register)
+
+
 
 import { Stack } from 'expo-router';
 

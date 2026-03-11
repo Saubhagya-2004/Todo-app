@@ -1,5 +1,5 @@
-// app/(auth)/login.tsx
-// Login screen with email/password authentication via Firebase
+
+
 
 import React, { useState } from 'react';
 import {
@@ -61,7 +61,7 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        {/* Header / Brand */}
+        {}
         <View className="items-center mb-9">
           <View className="w-16 h-16 rounded-full bg-blue-500 items-center justify-center mb-4 shadow-lg shadow-blue-500/50 elevation-xl">
             <Text className="text-3xl color-white">✦</Text>
@@ -70,12 +70,12 @@ export default function LoginScreen() {
           <Text className="text-sm text-slate-500 mt-1">Your intelligent task companion</Text>
         </View>
 
-        {/* Card */}
+        {}
         <View className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm shadow-slate-200 elevation-sm gap-4">
           <Text className="text-2xl font-extrabold text-slate-900">Welcome back</Text>
           <Text className="text-sm text-slate-500 -mt-2">Sign in to your account</Text>
 
-          {/* Email field */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Email</Text>
             <TextInput
@@ -91,7 +91,7 @@ export default function LoginScreen() {
             />
           </View>
 
-          {/* Password field */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Password</Text>
             <View className="relative">
@@ -114,7 +114,7 @@ export default function LoginScreen() {
             </View>
           </View>
 
-          {/* Login button */}
+          {}
           <TouchableOpacity
             className={`bg-blue-600 rounded-xl py-4 items-center mt-1 shadow-md shadow-blue-600/30 elevation-sm ${loading ? 'opacity-60' : ''}`}
             onPress={handleLogin}

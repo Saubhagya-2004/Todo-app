@@ -1,5 +1,5 @@
-// components/PriorityBadge.tsx
-// Displays a colored badge indicating task priority level
+
+
 
 import React from 'react';
 import { View, Text } from 'react-native';
@@ -9,7 +9,7 @@ interface PriorityBadgeProps {
   priority: Priority;
 }
 
-// Map priority to tailwind border color class
+
 const PRIORITY_CONFIG: Record<
   Priority,
   { bgClass: string; borderClass: string; textClass: string; label: string; emoji: string }

@@ -1,6 +1,3 @@
-// app/(tabs)/index.tsx
-// Main task list screen — shows all tasks with filtering and smart sorting
-
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -76,7 +73,7 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1 bg-slate-50" edges={['top']}>
       <StatusBar style="dark" />
 
-      {/* Header */}
+      {}
       <View className="flex-row justify-between items-center px-5 pt-3 pb-5">
         <View>
           <Text className="text-2xl font-extrabold text-slate-900">
@@ -97,10 +94,10 @@ export default function HomeScreen() {
         )}
       </View>
 
-      {/* Filter Pills */}
+      {}
       <FilterBar />
 
-      {/* Task List */}
+      {}
       <FlatList
         data={filteredTasks}
         keyExtractor={(item) => item.id}

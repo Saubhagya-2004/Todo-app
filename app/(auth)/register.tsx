@@ -1,5 +1,5 @@
-// app/(auth)/register.tsx
-// User registration screen with name, email, password, and confirm password
+
+
 
 import React, { useState } from 'react';
 import {
@@ -71,7 +71,7 @@ export default function RegisterScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
+        {}
         <View className="items-center mb-8">
           <View className="w-16 h-16 rounded-full bg-blue-500 items-center justify-center mb-4 shadow-lg shadow-blue-500/50 elevation-xl">
             <Text className="text-3xl color-white">✦</Text>
@@ -80,12 +80,12 @@ export default function RegisterScreen() {
           <Text className="text-sm text-slate-500 mt-1">Get organized, stay ahead</Text>
         </View>
 
-        {/* Card */}
+        {}
         <View className="bg-white rounded-3xl p-7 border border-slate-200 shadow-sm shadow-slate-200 elevation-sm gap-4">
           <Text className="text-2xl font-extrabold text-slate-900">Create account</Text>
           <Text className="text-sm text-slate-500 -mt-1.5">Join TaskFlow for free</Text>
 
-          {/* Full name */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Full Name</Text>
             <TextInput
@@ -99,7 +99,7 @@ export default function RegisterScreen() {
             />
           </View>
 
-          {/* Email */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Email</Text>
             <TextInput
@@ -115,7 +115,7 @@ export default function RegisterScreen() {
             />
           </View>
 
-          {/* Password */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Password</Text>
             <View className="relative">
@@ -137,7 +137,7 @@ export default function RegisterScreen() {
             </View>
           </View>
 
-          {/* Confirm Password */}
+          {}
           <View className="gap-1.5">
             <Text className="text-[13px] font-semibold text-slate-400 tracking-wider">Confirm Password</Text>
             <TextInput
@@ -152,7 +152,7 @@ export default function RegisterScreen() {
             />
           </View>
 
-          {/* Register button */}
+          {}
           <TouchableOpacity
             className={`bg-blue-600 rounded-xl py-4 items-center mt-1 shadow-md shadow-blue-600/30 elevation-sm ${loading ? 'opacity-60' : ''}`}
             onPress={handleRegister}

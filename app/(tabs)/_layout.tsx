@@ -1,5 +1,5 @@
-// app/(tabs)/_layout.tsx
-// Bottom tab navigator with Tasks, Add Task, and Profile tabs
+
+
 
 import { Tabs } from 'expo-router';
 import { View, Text, StyleSheet, Platform } from 'react-native';
@@ -7,15 +7,15 @@ import { useAuth } from '../../context/AuthContext';
 import { Redirect } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 
-// Removed custom TabIcon to use native spacing
+
 
 export default function TabsLayout() {
   const { user, loading } = useAuth();
 
-  // Show nothing while auth is loading
+  
   if (loading) return null;
 
-  // Redirect to login if not authenticated
+  
   if (!user) return <Redirect href="/(auth)/login" />;
 
   return (
